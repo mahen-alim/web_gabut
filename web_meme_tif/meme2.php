@@ -1,10 +1,16 @@
 <?php  
 include "koneksi.php";
+include "functions.php";
+
+$sqlquery = "SELECT * FROM daftarmeme";
+$rowresult = getdata($sqlquery);
+// var_dump($rowresult);
 ?>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Meme Page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="test.css">
 
     <!-- Below Url in src="" is of font awesome kit create your own kit and use that 
@@ -12,6 +18,17 @@ include "koneksi.php";
     a kit and use older version of font awesome icons-->
     <script src="https://kit.fontawesome.com/924b40cfb7.js" crossorigin="anonymous"></script>
 
+    <style>
+        .min-height {
+            min-height: 10px;
+        }
+        .table tbody td .min-height img {
+            max-height: 150px;
+        }
+        .table-hover tbody tr:hover {
+            background-color: cornsilk;
+        }
+    </style>
 </head> 
 <body>
     <div class="header">
@@ -30,115 +47,94 @@ include "koneksi.php";
 
     </ul>
     
-    <div class="konten">
+    <div class="konten mt-3">
         <h1>Daftar Meme</h1>
 
-        <table id="tabel">
-            <tr class="tabel-header">
-                <th>No</th>
-                <th>Meme</th>
-                <th>Judul</th>
-                <th>Pembuat</th>
-                <th>Status</th>
-                <th>Lucu</th>
-                <th>B Aja</th>
+        <table class="table table-striped table-hover table-bordered">
+        <thead>
+            <tr class="bg-primary text-white">
+            <th scope="col">No</th>
+            <th scope="col">Meme</th>
+            <th scope="col">Judul</th>
+            <th scope="col">Pembuat</th>
+            <th scope="col">Status</th>
+            <th scope="col">Like</th>
+            <th scope="col">dislike</th>
             </tr>
+        </thead>
+        <?php $idnumber = 0;?>
+        <tbody>
+            <?php foreach($rowresult as $row) : $idnumber++; ?>
+            <tr>
+                <td scope="row">
+                    <div class="min-height font-weight-bold">
+                        <?=  $idnumber;?>
+                    </div>
+                </td>                
+                <td scope="row" class="wrapper">
+                    <div class="min-height text-center">
+                        <img src="resource/<?=  $row['gambar'] ;?>" alt="meme image">
+                    </div>
+                </td>
+                <td scope="row">
+                    <div class="min-height text-capitalize">
+                        <?=  $row["judul"] ;?>
+                    </div>
+                </td>
+                <td scope="row">
+                    <div class="min-height text-capitalize">
+                        <?=  $row["creator"] ;?>
+                    </div>
+                </td>
+                <td scope="row">
+                    <div class="min-height text-capitalize">
+                        <?=  $row["status"] ;?>
+                    </div>
+                </td>
+                <td scope="row"><button onclick="Toggle3()" id="btnh3" class="btn2">             
+                    <div class="min-height">
+                        <i class="fa-solid fa-heart"><span id="like-count3" class="l-count"><?=  $row["love"] ;?></span></i></button>
+                    </div>
+                </td>
+                <td scope="row"><button onclick="Toggle4()" id="btnh4" class="btn3">
+                    <div class="min-height">
+                        <i class="fa-solid fa-heart-crack"><span id="like-count4" class="l-count2"><?=  $row["hate"] ;?></span></i></button>
+                    </div>
+                </td>
 
-            <tr class="tabel-konten">
-                <td class="nomor">1</td>
-                <td class="wrapper"><img src="resource/Senyum Kodomo.png" alt="meme 1"></td>
-                <td>Pram Face</td>
-                <td>Kang Jepret</td>
-                <td>Dilihat</td>
-                <td><button onclick="Toggle1()" id="btnh1" class="btn2"><i class="fa-solid fa-heart"><span id="like-count" class="l-count">0</span></i></button></td>
-                <td><button onclick="Toggle2()" id="btnh2" class="btn3"><i class="fa-solid fa-heart-crack"><span id="like-count2" class="l-count2">0</span></i></button></td>
             </tr>
-          
-            <tr class="tabel-konten
-            tabel-genap1">
-                <td>2</td>
-                <td class="wrapper"><img src="resource/helloman.png" alt="meme 1"></td>
-                <td>Man Face</td>
-                <td>Kang Jepret</td>
-                <td>Dilihat</td>
-                <td><button onclick="Toggle3()" id="btnh3" class="btn2"><i class="fa-solid fa-heart"><span id="like-count3" class="l-count">0</span></i></button></td>
-                <td><button onclick="Toggle4()" id="btnh4" class="btn3"><i class="fa-solid fa-heart-crack"><span id="like-count4" class="l-count2">0</span></i></button></td>
-            </tr>
-
-            <tr class="tabel-konten">
-                <td>3</td>
-                <td class="wrapper"><img src="resource/IMG-20220915-WA0008.jpg" alt="meme 1"></td>
-                <td>Mahen Face</td>
-                <td>Kang Jepret</td>
-                <td>Dilihat</td>
-                <td><button onclick="Toggle5()" id="btnh5" class="btn2"><i class="fa-solid fa-heart"><span id="like-count5" class="l-count">0</span></i></button></td>
-                <td><button onclick="Toggle6()" id="btnh6" class="btn3"><i class="fa-solid fa-heart-crack"><span id="like-count6" class="l-count2">0</span></i></button></td>
-            </tr>
-
-            <tr class="tabel-konten
-            tabel-genap1">
-                <td>4</td>
-                <td class="wrapper"><img src="resource/syam.jpg" alt="meme 1"></td>
-                <td>Syam Seleb</td>
-                <td>Anonymous</td>
-                <td>Dilihat</td>
-                <td><button onclick="Toggle7()" id="btnh7" class="btn2"><i class="fa-solid fa-heart"><span id="like-count7" class="l-count">0</span></i></button></td>
-                <td><button onclick="Toggle8()" id="btnh8" class="btn3"><i class="fa-solid fa-heart-crack"><span id="like-count8" class="l-count2">0</span></i></button></td>
-            </tr>
-
-            <tr class="tabel-konten">
-                <td>5</td>
-                <td class="wrapper"><img src="resource/syam2.jpg" alt="meme 1"></td>
-                <td>Syam Sipaling Lkmm</td>
-                <td>Kang Jepret</td>
-                <td>Dilihat</td>
-                <td><button onclick="Toggle9()" id="btnh9" class="btn2"><i class="fa-solid fa-heart"><span id="like-count9" class="l-count">0</span></i></button></td>
-                <td><button onclick="Toggle10()" id="btnh10" class="btn3"><i class="fa-solid fa-heart-crack"><span id="like-count10" class="l-count2">0</span></i></button></td>
-            </tr>
-
-            <tr class="tabel-konten
-            tabel-genap1">
-                <td>6</td>
-                <td class="wrapper"><img src="resource/sugeng.jpg" alt="meme 1"></td>
-                <td>Sugeng Face</td>
-                <td>Kang Jepret</td>
-                <td>Dilihat</td>
-                <td><button onclick="Toggle11()" id="btnh11" class="btn2"><i class="fa-solid fa-heart"><span id="like-count11" class="l-count">0</span></i></button></td>
-                <td><button onclick="Toggle12()" id="btnh12" class="btn3"><i class="fa-solid fa-heart-crack"><span id="like-count12" class="l-count2">0</span></i></button></td>
-            </tr>
-
-            <tr class="tabel-konten">
-                <td>7</td>
-                <td class="wrapper"><img src="resource/pram2.jpg" alt="meme 1"></td>
-                <td>Pram Sipaling Lkmm</td>
-                <td>Kang Jepret</td>
-                <td>Dilihat</td>
-                <td><button onclick="Toggle13()" id="btnh13" class="btn2"><i class="fa-solid fa-heart"><span id="like-count13" class="l-count">0</span></i></button></td>
-                <td><button onclick="Toggle14()" id="btnh14" class="btn3"><i class="fa-solid fa-heart-crack"><span id="like-count14" class="l-count2">0</span></i></button></td>
-            </tr>
-        
+            <?php  endforeach;?>
+        </tbody>
         </table>
         
-        <div class="add-meme">
-        <h2>Tambah Meme</h2>
-        <input type="number" id="inputAngka" placeholder="Masukkan Nomor" required>
-        <input type="file" id="inputGambar" accept="image/*" required>
-        <input type="text" id="inputDeskripsi" placeholder="Masukkan Judul" required>
-        <label id="input1">Pilih Pembuat
-        <select id="inputOpsi">
-            <option value="Kang Jepret">Kang Jepret</option>
-            <option value="Anonymous">Anonymous</option>
-            <option value="Kang Candid">Kang Candid</option>
-        </select>
-    </label>
-    <label id="input2">Pilih Status
-        <select id="inputOpsi2">
-            <option value="Dilihat">Dilihat</option>
-            <option value="Diabaikan">Diabaikan</option>
-            <option value="Menarik">Menarik</option>
-        </select>
-    </label>
-        <button class="tambah-konten" onclick="tambahkanKonten()">Tambah</button>
+        <div class="container-fluid mb-5 mt-5">
+
+            <form action="" method="post">
+    
+                <div class="add-meme">
+                <h2>Tambah Meme</h2>
+                <input type="number" id="inputAngka" placeholder="Masukkan Nomor" required>
+                <input type="file" id="inputGambar" accept="image/*" required>
+                <input type="text" id="inputDeskripsi" placeholder="Masukkan Judul" required>
+                <label id="input1">Pilih Pembuat
+                <select id="inputOpsi">
+                    <option value="Kang Jepret">Kang Jepret</option>
+                    <option value="Anonymous">Anonymous</option>
+                    <option value="Kang Candid">Kang Candid</option>
+                </select>
+                </label>
+        
+                <label id="input2">Pilih Status
+                    <select id="inputOpsi2">
+                        <option value="Dilihat">Dilihat</option>
+                        <option value="Diabaikan">Diabaikan</option>
+                        <option value="Menarik">Menarik</option>
+                    </select>
+                </label>
+        
+                <button type="submit" class="tambah-konten" onclick="tambahkanKonten()">Tambah</button>
+            </form>
+        </div>
     </div>
 
     </div>

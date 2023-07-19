@@ -201,7 +201,7 @@ td>img{
     transition: scale 400ms;
 }
 
-.wrapper:hover img{
+.wrapper img:hover{
     scale: 120%;
 }
 
