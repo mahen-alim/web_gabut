@@ -4,9 +4,9 @@ $dbuser = "root";
 $dbpass = "";
 $dbname = "website_meme";
 
-mysqli_connect($dbengine, $dbuser, $dbpass, $dbname);
+$conn = mysqli_connect($dbengine, $dbuser, $dbpass, $dbname);
 
-if (mysqli_connect) {
+if ($conn) {
     echo "database connected...";
 }
 ?>
